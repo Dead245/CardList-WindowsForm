@@ -18,7 +18,10 @@ namespace CardListWinForm
             InitializeComponent();
         }
 
-        List<object> originalList = new List<object>();
+        CardInfoDAO cardDOA = new CardInfoDAO();
+
+        //temp
+        List<CardInfo> objectList= new List<CardInfo>();
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -28,9 +31,9 @@ namespace CardListWinForm
             string textSearch = searchTextBox.Text;
 
             //Search for results in the list
-            for (int i = 0; i < originalList.Count; i++)
+            for (int i = 0; i < objectList.Count; i++)
             {
-                string item = originalList[i].ToString();
+                string item = objectList[i].cardName;
                 if (item.ToLower().Contains(textSearch.ToLower())) {
                     searchResultIndexs.Add(i);
                 }
@@ -38,55 +41,43 @@ namespace CardListWinForm
 
             //Show results of search
             int searchLength = searchResultIndexs.Count;
-            List<object> searchedItems = new List<object>();
+            List<CardInfo> searchedItems = new List<CardInfo>();
             for (int i = 0; i < searchLength; i++)
             {
-                searchedItems.Add(originalList[searchResultIndexs[i]]);
+                searchedItems.Add(objectList[searchResultIndexs[i]]);
             }
             
             cardListBox.Items.Clear();
 
             for (int i = 0; i < searchLength; i++)
             {
-                cardListBox.Items.Add(searchedItems[i]);
+                cardListBox.Items.Add(searchedItems[i].cardName);
             }
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //ALL TEMPORARY
-            cardListBox.Items.Add("The One");
-            cardListBox.Items.Add("The Second");
-            cardListBox.Items.Add("That Third One");
-            cardListBox.Items.Add("The Fourth");
-            cardListBox.Items.Add("Those Fifths");
-            cardListBox.Items.Add("That Sixth");
-            cardListBox.Items.Add("Those Sevenths");
-            cardListBox.Items.Add("The Eighth");
-            cardListBox.Items.Add("Nine");
-            cardListBox.Items.Add("Ten");
-
-            for (int i = 0; i < cardListBox.Items.Count; i++)
+            objectList = cardDOA.setTempData();
+            for (int i = 0; i < objectList.Count; i++)
             {
-                originalList.Add(cardListBox.Items[i]);
+                cardListBox.Items.Add(objectList[i].cardName);
             }
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CardInfo selectedCard = new CardInfo();
+            string currentItem = cardListBox.SelectedItem.ToString();
+            for (int i = 0; i < objectList.Count; i++)
+            {
+                if (objectList[i].cardName.Equals(currentItem)) {
+                    selectedCard = objectList[i];
+                    break;
+                }
+            }
             //Show info of selected card on cardInfoTextBox
-
-            //variables for Card Information Box
-            string cardName = "No Name", cardCost = "No Cost", cardType = "No Type",
-                   cardAttributes = "No Attributes", cardDescription = "No Description", cardFlavorText = "No Flavor Text";
-
             cardInfoTextBox.Clear();
-            cardInfoTextBox.Text = "Name:\n\t " + cardName + "\n" +
-                                   "Cost:\n\t " + cardCost + "\n" +
-                                   "Type:\n\t " + cardType + "\n" +
-                                   "Attributes:\n\t " + cardAttributes + "\n" +
-                                   "Description:\n\t " + cardDescription + "\n" +
-                                   "Flavor Text:\n\t " + cardFlavorText;
+            cardInfoTextBox.Text = selectedCard.createNewText();
         }
 
         private void label1_Click(object sender, EventArgs e)
