@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,6 @@ namespace CardListWinForm
             InitializeComponent();
         }
 
-        CardInfoDAO cardDOA = new CardInfoDAO();
-
-        //temp
         List<CardInfo> objectList= new List<CardInfo>();
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,7 +31,7 @@ namespace CardListWinForm
             //Search for results in the list
             for (int i = 0; i < objectList.Count; i++)
             {
-                string item = objectList[i].cardName;
+                string item = objectList[i].Name;
                 if (item.ToLower().Contains(textSearch.ToLower())) {
                     searchResultIndexs.Add(i);
                 }
@@ -51,17 +49,17 @@ namespace CardListWinForm
 
             for (int i = 0; i < searchLength; i++)
             {
-                cardListBox.Items.Add(searchedItems[i].cardName);
+                cardListBox.Items.Add(searchedItems[i].Name);
             }
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            objectList = cardDOA.setTempData();
+            objectList = CardInfoDAO.LoadCards();
             for (int i = 0; i < objectList.Count; i++)
             {
-                cardListBox.Items.Add(objectList[i].cardName);
+                cardListBox.Items.Add(objectList[i].Name);
             }
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -70,7 +68,7 @@ namespace CardListWinForm
             string currentItem = cardListBox.SelectedItem.ToString();
             for (int i = 0; i < objectList.Count; i++)
             {
-                if (objectList[i].cardName.Equals(currentItem)) {
+                if (objectList[i].Name.Equals(currentItem)) {
                     selectedCard = objectList[i];
                     break;
                 }

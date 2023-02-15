@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace CardListWinForm
 {
-    internal class CardInfo
+    public class CardInfo
     {
-        public string cardName { get; set; }
-        public string cardCost { get; set; }
-        public string cardType { get; set; }
-        public string cardAttributes { get; set; }
-        public string cardDescription { get; set; }
-        public string cardFlavorText { get; set; }
-
+        public string Name { get; set; }
+        public string Cost { get; set; }
+        public string Type { get; set; }
+        public string Attributes { get; set; }
+        public string Description { get; set; }
+        public string FlavorText { get; set; }
+        public string Power { get; set; }
         public string createNewText()
         {
-            return "Name:\n\t " + cardName + "\n" +
-                   "Cost:\n\t " + cardCost + "\n" +
-                   "Type:\n\t " + cardType + "\n" +
-                   "Attributes:\n\t " + cardAttributes + "\n" +
-                   "Description:\n\t " + cardDescription + "\n" +
-                   "Flavor Text:\n\t " + cardFlavorText;
+            return "Name:\n\t " + Name + "\n" +
+                   "Cost:\n\t " + Cost + "\n" +
+                   "Power:\n\t " + Power + "\n" +
+                   "Type:\n\t " + Type + "\n" +
+                   "Attributes:\n\t " + Attributes + "\n" +
+                   "Description:\n\t " + Description + "\n" +
+                   "Flavor Text:\n\t " + FlavorText;
         }
     }
 }
