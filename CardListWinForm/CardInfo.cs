@@ -22,8 +22,8 @@ namespace CardListWinForm
                    "Power:\n\t " + Power + "\n" +
                    "Type:\n\t " + Type + "\n" +
                    "Attributes:\n\t " + Attributes + "\n" +
-                   "Description:\n\t " + Description + "\n" +
-                   "Flavor Text:\n\t " + FlavorText;
+                   "Description:\n\t " + Description + "\n\n" +
+                   "Flavor Text:\n\t " + FlavorText + "";
         }
     }
 }
